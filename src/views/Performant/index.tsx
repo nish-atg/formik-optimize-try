@@ -28,12 +28,31 @@ const Schema = yup.object().shape({
         .ensure()
         .min(1, 'Please describe with minimum 3 characters')
         .required('rquired'),
+      prop1: yup
+        .string()
+        .trim()
+        .ensure()
+        .min(1, 'Please describe with minimum 3 characters')
+        .required('rquired'),
+      prop2: yup
+        .string()
+        .trim()
+        .ensure()
+        .min(1, 'Please describe with minimum 3 characters')
+        .required('rquired'),
     })
   ),
 });
 
 export const Performant: React.FC<PerformantProps> = memo((props) => {
-  const totalFields = new Array(100).fill({someText: '', brand: ''});
+  const totalFields = new Array(100).fill({
+    someText: '',
+    brand: '',
+    description: '',
+    prop1: '',
+    prop2: '',
+  });
+
   return (
     <Formik
       initialValues={{
@@ -55,6 +74,7 @@ export const Performant: React.FC<PerformantProps> = memo((props) => {
                         container
                         key={`field-${i}`}
                         style={{marginBottom: 10}}
+                        spacing={1}
                       >
                         <Grid
                           container
@@ -65,13 +85,13 @@ export const Performant: React.FC<PerformantProps> = memo((props) => {
                         >
                           <span>{i + 1}</span>
                         </Grid>
-                        <Grid item xs={3}>
+                        <Grid item xs={2}>
                           <PerformantTextField
                             label={'someText #' + (i + 1)}
                             name={`loadItems[${i}].someText`}
                           />
                         </Grid>
-                        <Grid item xs={5}>
+                        <Grid item xs={3}>
                           <Select
                             name={`loadItems[${i}].brand`}
                             style={{width: 150, marginLeft: 20}}
@@ -83,13 +103,25 @@ export const Performant: React.FC<PerformantProps> = memo((props) => {
                             ))}
                           </Select>
                         </Grid>
-                        <Grid item xs={3}>
+                        <Grid item xs={2}>
                           <PerformantTextField
                             label={'Description #' + (i + 1)}
                             name={`loadItems[${i}].description`}
                           />
                         </Grid>
-                      </Grid>                
+                        <Grid item xs={2}>
+                          <PerformantTextField
+                            label={'Prop1 #' + (i + 1)}
+                            name={`loadItems[${i}].prop1`}
+                          />
+                        </Grid>
+                        <Grid item xs={2}>
+                          <PerformantTextField
+                            label={'Prop2 #' + (i + 1)}
+                            name={`loadItems[${i}].prop2`}
+                          />
+                        </Grid>
+                      </Grid>
                     ))}
                   </div>
                 )}
